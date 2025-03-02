@@ -188,8 +188,8 @@ User input: ${JSON.stringify(userInput)}`;
       })
     );
 
-    const finalFilteredSongs = FilterSongs.flat().filter(
-      (song) => song !== null
+ const finalFilteredSongs = FilterSongs.flat().filter(
+      (song) => song !== null && song.playCount >= 90000
     );
     const FilteredSongsForAI = [];
     FilteredSongsForAI.push({ userInput: userInput });
