@@ -207,6 +207,7 @@ User input: ${JSON.stringify(userInput)}`;
     const Filterprompt = `Return your output as valid JSON.
 You need to determine if each song in the list is relevant to the user's input.
 For each song, return 1 if it is relevant, and 0 if it is not.
+If a song appears more than once in the list, return 0 for all duplicates.
 The JSON should have a key "mySuggestion" that holds an array of integers (0 or 1).
 The first element of FilteredSongsForAI is the user input and should not be considered for suggestion.
 
