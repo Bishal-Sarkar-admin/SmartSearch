@@ -28,7 +28,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // Rate limiter configuration
 const limiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute window
+  windowMs: 1 * 30 * 1000, // 30s  window
   max: 30, // limit each IP to 30 requests per windowMs
   message: { error: "Too many requests, please try again later." },
 });
