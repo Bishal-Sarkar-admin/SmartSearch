@@ -3,12 +3,18 @@ import express from "express";
 import cors from "cors";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import fetch from "node-fetch";
-import rateLimit from "express-rate-limit";
+
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+// Allow requests only from your frontend domain
+app.use(
+  cors({
+    origin: "https://bishal-sarkar-admin.github.io",
+    methods: ["GET", "POST"], // Allowed methods
+  })
+);
 app.use(express.json());
 
 // Middleware to check the API key for secured endpoints
@@ -26,13 +32,7 @@ app.use("/smart-search", checkApiKey);
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// Rate limiter configuration
-const limiter = rateLimit({
-  windowMs: 5* 1000, // 5s  window
-  max: 30, // limit each IP to 30 requests per windowMs
-  message: { error: "Too many requests, please try again later." },
-});
-app.use(limiter);
+
 
 // Test endpoint
 app.get("/test", (req, res) => {
