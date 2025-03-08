@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import fetch from "node-fetch";
-
+import rateLimit from "express-rate-limit";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,7 +16,11 @@ app.use(
   })
 );
 app.use(express.json());
-
+const limiter = rateLimit({
+   windowMs: 1 * 30 * 1000, // 30s  window
+   max: 30, // limit each IP to 30 requests per windowMs
+   message: { error: "Too many requests, please try again later." },
+ });
 // Middleware to check the API key for secured endpoints
 function checkApiKey(req, res, next) {
   const apiKey = req.headers["x-api-key"];
