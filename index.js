@@ -196,7 +196,7 @@ User input: ${JSON.stringify(userInput)}`;
       (song) => song !== null && song.playCount >= 90000
     );
     const FilteredSongsForAI = [];
-    FilteredSongsForAI.push({ userInput: userInput });
+   
     finalFilteredSongs.forEach((song) =>
       FilteredSongsForAI.push({
         title: song.title,
@@ -208,14 +208,15 @@ User input: ${JSON.stringify(userInput)}`;
       })
     );
 
-    const Filterprompt = `Return your output as valid JSON.
-You need to determine if each song in the list is relevant to the user's input.
-For each song, return 1 if it is relevant, and 0 if it is not.
-If a song appears more than once in the list, return 0 for all duplicates.
-The JSON should have a key "mySuggestion" that holds an array of integers (0 or 1).
-The first element of FilteredSongsForAI is the user input and should not be considered for suggestion.
+const Filterprompt = `Return your output as valid JSON.
+Determine the relevance of each song in the list based on the user's input.
+- Return 1 if the song is relevant, 0 otherwise.
+- If a song appears more than once, mark all duplicates as 0.
+- The first element of "FilteredSongsForAI" is the user's input and should not be considered.
+- Provide the result in a JSON object with the key "mySuggestion", containing an array of integers (0 or 1).
 
-User input: ${JSON.stringify(FilteredSongsForAI)}`;
+userInput: ${userInput}
+API call Output: ${JSON.stringify(FilteredSongsForAI)}`;
 
     const filterModel = genAI.getGenerativeModel({
       model: "gemini-2.0-flash",
