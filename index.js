@@ -220,8 +220,15 @@ API call Output: ${JSON.stringify(FilteredSongsForAI)}`;
 
     const filterModel = genAI.getGenerativeModel({
       model: "gemini-2.0-flash",
+      systemInstruction: {
+        role: "model",
+        parts: [
+          {
+             text: "You are an expert music Selector. Only output valid JSON without markdown formatting or extra text.",
+          },
+        ],
+      },
     });
-
     const filterResponse = await filterModel.generateContent(Filterprompt);
     let filterOutput = filterResponse.response.text();
 
