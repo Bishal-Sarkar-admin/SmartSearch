@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 // Allow requests only from your frontend domain
 app.use(
   cors({
-    origin: "https://bishal-sarkar-admin.github.io",
+    origin: `${process.env.url}`,
     methods: ["GET", "POST"], // Allowed methods
   })
 );
@@ -157,7 +157,7 @@ User input: ${JSON.stringify(userInput)}`;
       suggestions.songs.map(async (song) => {
         try {
           const response = await fetch(
-            `https://musiclover-nu.vercel.app/api/search/songs?query=${encodeURIComponent(
+            `${process.env.urlMusic}/api/search/songs?query=${encodeURIComponent(
               song
             )}`
           );
