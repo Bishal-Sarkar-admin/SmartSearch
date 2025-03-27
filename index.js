@@ -216,6 +216,7 @@ Determine the relevance of each song in the list based on the user's input.
 - Provide the result in a JSON object with the key "mySuggestion", containing an array of integers (0 or 1).
 
 userInput: ${userInput}
+Total Songs: ${FilteredSongsForAI.length}
 API call Output: ${JSON.stringify(FilteredSongsForAI)}`;
 
     const filterModel = genAI.getGenerativeModel({
